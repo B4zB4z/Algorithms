@@ -30,21 +30,57 @@ class DoubleLinkedList():
         #if list is empty new node gets both pointers of head and tail
         if self.head is None:
             self.head = self.tail = new_node
-        #if there is a node already, the previous pointer of the new node will point to the head
-        #the next pointer of the head will point to the new node
-        #and the new node will get the pointer of the tail, pointing at it 
+        #if there is a node already, the previous pointer of the new node will point to the current tail
+        #the next pointer of the current tail will point to the new node
+        #and the new node will become the new tail 
         else:
-            new_node.prev = self.head
-            self.head.next = new_node
+            new_node.prev = self.tail
+            self.tail.next = new_node
             self.tail = new_node
     
-
+    #function to display the list
     def display(self):
+        #we start from the beggining of the list (head), and we print everything with a while loop
+        #moving the pointer to the next node until it becomes none
         pointer = self.head
         while pointer is not None:
             print(pointer.data)
             pointer = pointer.next
     
+    #function to remove a node from the list
+    def remove(self, value):
+        pointer = self.head
+        while pointer is not None:
+            if value == pointer.data and pointer == self.head:
+                self.head = self.head.next
+                self.head.prev = None
+            elif pointer == pointer.data and pointer == self.tail:
+                self.tail = self.tail.prev
+                self.tail.next = None
+            elif pointer == self.head and pointer == self.tail:
+                self.head = self.tail = None
+            elif pointer == value:
+                pointer.prev.next = pointer.next
+                pointer.next.prev = pointer.prev
+            return True
+        pointer = pointer.next
+        return False
+    
 
 
 
+
+
+
+
+list = DoubleLinkedList()
+list.add(3)
+list.add(24)
+list.add(9)
+list.add(786)
+list.add(75)
+list.add(35)
+list.add(6)
+list.display()
+list.remove(6)
+list.display()
