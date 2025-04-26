@@ -51,14 +51,18 @@ class DoubleLinkedList():
     def remove(self, value):
         pointer = self.head
         while pointer is not None:
+            #if it's the first element
             if value == pointer.data and pointer == self.head:
                 self.head = self.head.next
                 self.head.prev = None
+            #if it's the last element
             elif pointer == pointer.data and pointer == self.tail:
                 self.tail = self.tail.prev
                 self.tail.next = None
+            #if there is only one element in the list
             elif pointer == self.head and pointer == self.tail:
                 self.head = self.tail = None
+            #if it's in the middle
             elif pointer == value:
                 pointer.prev.next = pointer.next
                 pointer.next.prev = pointer.prev
